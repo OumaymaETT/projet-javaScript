@@ -6,21 +6,21 @@
  * @param {string} message - Le message à afficher.
  */
 function afficherMessage(message) {
-    document.getElementById("verificationResults").innerHTML += message + "<br>";
-}
-
+    const verificationResults = document.getElementById("verificationResults");
+    verificationResults.style.display = "block"; 
+    verificationResults.innerHTML += message + "<br>";}
 /**
  * Fonction afficherMessageRegion
- * Affiche un message d'erreur spécifiquement pour une région 3x3 incorrecte.
- * Utilise afficherMessage pour afficher le message formaté avec les coordonnées de la région
- * et la liste des valeurs de cette région.
+ * Affiche un message d'erreur pour une région 3x3 de la grille de Sudoku qui est incorrecte.
+ * Le message indique le numéro de la région et les valeurs de cette région, séparées par des espaces.
  * 
- * @param {number} x - Coordonnée de ligne de la région (indice de région).
- * @param {number} y - Coordonnée de colonne de la région (indice de région).
- * @param {Array} region - Les valeurs de la région 3x3 en cours de vérification.
+ * @param {number} x - Coordonnée de la "ligne" de la région (indice de région).
+ * @param {number} y - Coordonnée de la "colonne" de la région (indice de région).
+ * @param {Array} region - Tableau contenant les valeurs de la région 3x3 qui est incorrecte.
  */
 function afficherMessageRegion(x, y, region) {
-    afficherMessage(`Région (${x + 1}, ${y + 1}) incorrecte: ${region.join(" ")}`);
+    const regionNumber = x * 3 + y + 1;
+    afficherMessage(`Région ${regionNumber} incorrecte: ${region.join(" ")}`);
 }
 /**
  * Fonction F31
@@ -58,15 +58,20 @@ function F32() {
         }
     }
 }
-/* j'ai pas encore fini cette fct
+/**
+ * Fonction F33
+ * Vérifie chaque région 3x3 de la grille de Sudoku en s'assurant que chaque région
+ * contient les nombres uniques de 1 à 9. 
+ * Si une région contient des doublons ou des valeurs hors de l'intervalle 1-9,
+ * un message d'erreur est affiché.
+ */
 function F33() {
     for (let x = 0; x < 3; x++) {
         for (let y = 0; y < 3; y++) {
             let region = [];
             for (let i = 0; i < 3; i++) {
                 for (let j = 0; j < 3; j++) {
-
-                    
+                    region.push(to_verify[x * 3 + i][y * 3 + j]);
                 }
             }
             if (!F21(region)) {
@@ -75,4 +80,3 @@ function F33() {
         }
     }
 }
-*/
